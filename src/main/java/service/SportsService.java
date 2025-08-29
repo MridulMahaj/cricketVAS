@@ -19,20 +19,20 @@ public class SportsService {
 
     private final RestTemplate restTemplate = new RestTemplate();
 
-    public String getLiveMatches() {
+    public Object fetchSportsData() {
         HttpHeaders headers = new HttpHeaders();
         headers.set("X-RapidAPI-Key", apiKey);
         headers.set("X-RapidAPI-Host", apiHost);
 
-        HttpEntity<Void> entity = new HttpEntity<>(headers);
+        HttpEntity<String> entity = new HttpEntity<>(headers);
 
-        ResponseEntity<String> response = restTemplate.exchange(
+        ResponseEntity<Object> response = restTemplate.exchange(
                 apiUrl,
                 HttpMethod.GET,
                 entity,
-                String.class
+                Object.class
         );
 
-        return response.getBody();
+        return response.getBody(); // Will be auto-serialized into JSON
     }
 }

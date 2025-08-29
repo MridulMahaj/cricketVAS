@@ -2,6 +2,7 @@ package controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
 import service.SportsService;
 
 @RestController
@@ -14,7 +15,8 @@ public class SportsController {
     }
 
     @GetMapping("/matches/live")
-    public String getLiveMatches() {
-        return sportsService.getLiveMatches();
+    public ResponseEntity<Object> getLiveMatches() {
+        Object data = sportsService.fetchSportsData();
+        return ResponseEntity.ok(data); // Always returns JSON
     }
 }
